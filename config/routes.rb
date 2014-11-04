@@ -10,13 +10,15 @@ Todo::Application.routes.draw do
 
   resources :items, only: [:destroy]
 
-  namespace :api, :defaults => { :format => :json } do
-    resources :users do
-      resources :lists, except: [:index]
+  namespace :api, defaults: { format: :json },
+                              constraints: { subdomain: 'api' }, path: '/' do
+                                
+    resources :users, except: [:new, :edit] do
+      resources :lists, except: [:index, :new, :edit]
     end
 
     resources :lists, only: [:index] do
-      resources :items, only: [:create, :new]
+      resources :items, only: [:create]
     end
 
     resources :items, only: [:destroy]
