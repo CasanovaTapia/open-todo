@@ -1,6 +1,5 @@
 class Api::ApiController < ApplicationController
   skip_before_action :verify_authenticity_token
-
   respond_to :json
 
   private
@@ -16,6 +15,10 @@ class Api::ApiController < ApplicationController
     }
 
     render json: response.to_json, status: status
+  end
+
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
   end
 
 end

@@ -7,8 +7,8 @@ describe Api::UsersController do
   end
 
   describe "create" do
-    it "creates and returns a new user from username and password params" do
-      params = { 'new_user' => { 'username' => 'testuser', 'password' => 'testpass' } }
+    it "creates and returns a new user from email and password params" do
+      params = { 'new_user' => { 'email' => 'test@example.com', 'password' => 'testpass' } }
 
       expect{ post :create, params }
         .to change{ User.where(params['new_user']).count }
@@ -18,11 +18,11 @@ describe Api::UsersController do
     end
 
     it "returns an error when not given a password" do
-      post :create, { username: 'testuser' }
+      post :create, { email: 'testuser' }
       response.should be_error
     end
 
-    it "returns an error when not given a username" do
+    it "returns an error when not given a email" do
       post :create, { password: 'testpass' }
       response.should be_error
     end
@@ -30,19 +30,19 @@ describe Api::UsersController do
 
   describe "index" do
 
-    before do 
-      (1..3).each{ |n| User.create( id: n, username: "name#{n}", password: "pass#{n}" ) }
+    before do
+      (1..3).each{ |n| User.create( id: n, email: "name#{n}", password: "pass#{n}" ) }
     end
 
-    it "lists all usernames and ids" do
+    it "lists all emails and ids" do
       get :index
 
-      JSON.parse(response.body).should == 
-        { 'users' => 
+      JSON.parse(response.body).should ==
+        { 'users' =>
           [
-            { 'id' => 1, 'username' => 'name1' },
-            { 'id' => 2, 'username' => 'name2' },
-            { 'id' => 3, 'username' => 'name3' }
+            { 'id' => 1, 'email' => 'name1' },
+            { 'id' => 2, 'email' => 'name2' },
+            { 'id' => 3, 'email' => 'name3' }
           ]
         }
     end

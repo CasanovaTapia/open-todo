@@ -31,4 +31,4 @@ group :doc do
 end
 
 gem 'active_model_serializers'
-gem 'bcrypt-ruby', :require => 'bcrypt'
+gem 'bcrypt', :require => 'bcrypt'
