@@ -4,11 +4,7 @@ class Api::SessionsController < Api::ApiController
 
     if @user
       session[:user_id] = @user.id
-      render  :status => 200,
-              :json => {
-                :success => "Logged in",
-      :user => @user
-    }
+      render json: @user, each_serializer: UserSerializer
     else
       render json: @user.errors, status: :unprocessable_entity
     end
