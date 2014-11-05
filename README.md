@@ -38,10 +38,25 @@ curl -X GET http://localhost:3000/api/lists
 
 Update List attributes:
 ```
-curl -i -H "Accept: application/json" -X PUT -d '{"list":{"permissions":"viewable"}}' http://localhost:3000/api/users/1/lists/2
+curl -i -H "Accept: application/json" -X PUT -d '{"list":{"permissions":"viewable"}}' http://localhost:3000/api/users/:user_id/lists/:id
 ```
 
 Delete list:
 ```
 curl -i -H "Accept: application/json" -X DELETE http://localhost:3000/api/users/:user_id/lists/:id
+```
+
+Create todo item:
+```
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"item":{"description":"New item"}}' http://localhost:3000/api/lists/:list_id/items
+```
+
+Delete todo item:
+```
+curl -i -H "Accept: application/json" -X DELETE http://localhost:3000/api/lists/:list_id/items/:id
+```
+
+View items in a list:
+```
+curl -X GET http://localhost:3000/api/lists/:list_id/items
 ```

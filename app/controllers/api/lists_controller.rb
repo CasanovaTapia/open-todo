@@ -1,8 +1,12 @@
 class Api::ListsController < Api::ApiController
   def index
     @lists = List.all
-
     render json: @lists, each_serializer: ListSerializer
+  end
+
+  def show
+    @list = List.find(params[:id])
+    render json: @list
   end
 
   def create
@@ -15,11 +19,6 @@ class Api::ListsController < Api::ApiController
     else
       render json: @list.errors, status: :unprocessable_entry
     end
-  end
-
-  def show
-    @list = List.find(params[:id])
-    render json: @list
   end
 
   def update
