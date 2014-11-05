@@ -2,7 +2,7 @@ class Api::UsersController < Api::ApiController
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users, each_serializer: UserSerializer
   end
 
   def create
