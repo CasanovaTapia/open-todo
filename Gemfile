@@ -32,3 +32,4 @@ end
 
 gem 'active_model_serializers'
 gem 'bcrypt', :require => 'bcrypt'
+gem 'pundit'

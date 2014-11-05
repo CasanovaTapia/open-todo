@@ -2,6 +2,14 @@ class List < ActiveRecord::Base
   belongs_to :user
   has_many :items
 
+  def viewable?
+    permissions == 'viewable'
+  end
+
+  def open?
+    permissions == 'open'
+  end
+
   def self.permission_options
     %w(private viewable open)
   end
