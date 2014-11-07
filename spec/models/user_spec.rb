@@ -1,19 +1,19 @@
 require 'spec_helper'
 
-describe User do 
-  describe "authenticate?" do
+describe User do
+  describe "authenticate" do
 
-    let(:user) { FactoryGirl.build(:user, password: 'password') }
-    
+    let(:user) { FactoryGirl.build(:user) }
+
     it "tests for password parity" do
-      user.authenticate?('password').should be_true
-      user.authenticate?('otherpass').should be_false
+      user.authenticate('myemail', 'mypassword').should be_true
+      user.authenticate('myemail', 'otherpass').should be_false
     end
   end
 
   describe "can?" do
 
-    before do 
+    before do
       @user = FactoryGirl.create(:user)
       @list = FactoryGirl.create(:list, user: @user)
     end
@@ -30,19 +30,19 @@ describe User do
       @list.user.should_not be user2
       @list.permissions.should == 'private'
 
-      [:view, :edit].all?{ |action| 
-        user2.can?(action, @list) 
+      [:view, :edit].all?{ |action|
+        user2.can?(action, @list)
       }.should be_false
 
       @list.permissions = 'visible'
-      
+
       user2.can?(:view, @list).should be_true
       user2.can?(:edit, @list).should be_false
 
       @list.permissions = 'open'
 
       [:view, :edit].all?{ |action|
-        user2.can?(action, @list) 
+        user2.can?(action, @list)
       }.should be_true
     end
   end
