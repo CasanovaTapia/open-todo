@@ -3,7 +3,7 @@ Forked from [Bloc](https://github.com/Bloc/open-todo)
 
 To sign up:
 ```
-curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"user":{"email":"member@example.com", "password":"helloworld"}}' http://localhost:3000/api/users
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"email":"member5@example.com", "password":"helloworld"}' http://localhost:3000/api/users
 ```
 
 To log in:
@@ -23,12 +23,12 @@ curl -X GET http://localhost:3000/api/users
 
 Create new list, replace :user_id with your id:
 ```
-curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"list":{"name":"New list", "permissions":"open"}}' http://localhost:3000/api/users/:user_id/lists
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"name":"Private list", "permissions":"private"}' http://localhost:3000/api/users/1/lists
 ```
 
 Show list:
 ```
-curl -X GET http://localhost:3000/api/users/:user_id/lists/:id
+curl -X GET http://localhost:3000/api/users/1/lists/1
 ```
 
 List index:
@@ -38,7 +38,7 @@ curl -X GET http://localhost:3000/api/lists
 
 Update List attributes:
 ```
-curl -i -H "Accept: application/json" -X PUT -d '{"list":{"permissions":"viewable"}}' http://localhost:3000/api/users/:user_id/lists/:id
+curl -H "Accept: application/json" -X PUT -d '{"permissions":"viewable"}' http://localhost:3000/api/users/1/lists/1
 ```
 
 Delete list:
@@ -48,7 +48,7 @@ curl -i -H "Accept: application/json" -X DELETE http://localhost:3000/api/users/
 
 Create todo item:
 ```
-curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"item":{"description":"New item"}}' http://localhost:3000/api/lists/:list_id/items
+curl -v -H "Accept: application/json" -H "Content-type: application/json" -X POST -d '{"description":"3rd item"}' http://localhost:3000/api/lists/1/items
 ```
 
 Delete todo item:
@@ -58,5 +58,5 @@ curl -i -H "Accept: application/json" -X DELETE http://localhost:3000/api/lists/
 
 View items in a list:
 ```
-curl -X GET http://localhost:3000/api/lists/:list_id/items
+curl -X GET http://localhost:3000/api/lists/1/items
 ```

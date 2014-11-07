@@ -1,21 +1,21 @@
-class Api::ListPolicy < ApplicationPolicy
-  def index
+class ListPolicy < ApplicationPolicy
+  def index_api?
     user.present?
   end
 
-  def show
+  def show_api?
     user.present? && (record.permissions == "open" || record.permissions == "viewable")
   end
 
-  def create
+  def create_api?
     user.present?
   end
 
-  def update
+  def update_api?
     user.present? && (record.user == user || record.permissions == "open")
   end
 
-  def destroy
+  def destroy_api?
     user.present? && record.user == user
   end
 

@@ -9,15 +9,25 @@ class Api::UsersController < Api::ApiController
     @user = User.new(user_params)
 
     if @user.save
-      render json: @user, status: :created, location: @user, each_serializer: UserSerializer
+      render json: @user, status: :ok, location: [:api, @user], each_serializer: UserSerializer
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :error
+    end
+  end
+
+  def destroy
+    @user = User.find(params[:id])
+
+    if @user.destroy
+      head :no_content
+    else
+      render status: :error
     end
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:email, :password)
+    params.permit(:email, :password)
   end
 end

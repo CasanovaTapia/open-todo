@@ -10,11 +10,12 @@ class Api::ItemsController < Api::ApiController
     @list = List.find(params[:list_id])
     @item = @list.items.new(item_params)
     @item.list_id = @list.id
+    @item.user_id = @list.user_id
 
     if @item.save
-      render json: @item, status: :created, location: @item, each_serializer: ItemSerializer
+      render json: @item, status: :ok, location: [:api, @item.list, @item], each_serializer: ItemSerializer
     else
-      render @item.errors, status: :unprocessable_entry
+      render @item.errors, status: :error
     end
   end
 
@@ -31,6 +32,6 @@ class Api::ItemsController < Api::ApiController
   private
 
   def item_params
-    params.require(:item).permit(:description, :list_id)
+    params.permit(:description, :list_id)
   end
 end

@@ -6,7 +6,7 @@ class Api::SessionsController < Api::ApiController
       session[:user_id] = @user.id
       render json: @user, each_serializer: UserSerializer
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: @user.errors, status: :error
     end
   end
 
